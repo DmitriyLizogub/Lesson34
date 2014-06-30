@@ -10,7 +10,7 @@ public class ArrayHelper implements ArraysUnion {
     @Override
     public int[] leftUnion(int[] leftArray, int[] rightArray) {
 
-        if (leftArray != null && rightArray != null && (leftArray.length+rightArray.length)<Integer.MAX_VALUE) {
+        if (leftArray != null && rightArray != null && (leftArray.length + rightArray.length) < Integer.MAX_VALUE) {
             int resultLength = leftArray.length + rightArray.length;
             int[] resultArray = Arrays.copyOf(leftArray, resultLength);
             int count = leftArray.length;
@@ -28,23 +28,20 @@ public class ArrayHelper implements ArraysUnion {
     }
 
 
-
-
-
     @Override
-    public  int[] innerUnion(int[] leftArray, int[] rightArray){
-        if (leftArray != null && rightArray != null && (leftArray.length+rightArray.length)<Integer.MAX_VALUE) {
+    public int[] innerUnion(int[] leftArray, int[] rightArray) {
+        if (leftArray != null && rightArray != null && (leftArray.length + rightArray.length) < Integer.MAX_VALUE) {
 
-                int resultLength = leftArray.length + rightArray.length;
-                int[] resultArray = new int[resultLength];
-                for (int i = 0; i < leftArray.length; i++) {
-                    for (int j = 0; j < rightArray.length; j++) {
-                        if (leftArray[i] == rightArray[j]) resultArray[i] = leftArray[i];
-                    }
+            int resultLength = leftArray.length + rightArray.length;
+            int[] resultArray = new int[resultLength];
+            for (int i = 0; i < leftArray.length; i++) {
+                for (int j = 0; j < rightArray.length; j++) {
+                    if (leftArray[i] == rightArray[j]) resultArray[i] = leftArray[i];
                 }
-                int [] rezArray = setDuplicatesAsZero(resultArray);
+            }
+            int[] rezArray = setDuplicatesAsZero(resultArray);
 
-                return removeUnneededZerosFromArray(leftArray,rightArray,rezArray,false);
+            return removeUnneededZerosFromArray(leftArray, rightArray, rezArray, false);
 
         }
         return null;
@@ -52,20 +49,39 @@ public class ArrayHelper implements ArraysUnion {
     }
 
 
-
-
-
     @Override
-    public  int[] outerUnion(int[] leftArray, int[] rightArray){
-        if (leftArray != null && rightArray != null && (leftArray.length+rightArray.length)<Integer.MAX_VALUE) {
+    public int[] outerUnion(int[] leftArray, int[] rightArray) {
+        if (leftArray != null && rightArray != null && (leftArray.length + rightArray.length) < Integer.MAX_VALUE) {
             int resultLength = leftArray.length + rightArray.length;
 
+            Arrays.sort(leftArray);
+            for (int k = 0; k < leftArray.length - 1; k++) {
+                if (leftArray[k] == leftArray[k + 1]) leftArray[k + 1] = 0;
+            }
+
+            Arrays.sort(rightArray);
+            for (int z = 0; z < leftArray.length - 1; z++) {
+                if (rightArray[z] == rightArray[z + 1]) rightArray[z + 1] = 0;
+            }
+
+            int[] resArray = Arrays.copyOf(leftArray, resultLength);
+            for (int t = 0; t < rightArray.length; t++) {
+                resArray[leftArray.length + t] = rightArray[t];
+            }
+
+            Arrays.sort(resArray);
+            for (int i = 0; i < resArray.length - 1; i++) {
+
+                if (resArray[i] == resArray[i + 1]) resArray[i] = resArray[i + 1] = 0;
+
+            }
+
+            return removeUnneededZerosFromArray(leftArray, rightArray, resArray, false);
+
+
         }
         return null;
     }
-
-
-
 
 
     private int[] removeUnneededZerosFromArray(int[] leftArray, int[] rightArray, int[] resultArray, boolean flagLeft) {
@@ -94,7 +110,7 @@ public class ArrayHelper implements ArraysUnion {
     private int countNeededZeros(int[] leftArray, int[] rightArray, boolean flagLeft) {
         int counter = 0;
 
-        if(flagLeft) {
+        if (flagLeft) {
             if (isZerosInArray(leftArray)) {
                 for (int k = 0; k < leftArray.length; k++) {
                     if (leftArray[k] == 0) counter++;
@@ -136,10 +152,10 @@ public class ArrayHelper implements ArraysUnion {
         return isZeros;
     }
 
-    private int[] setDuplicatesAsZero(int[] inputArray){
+    private int[] setDuplicatesAsZero(int[] inputArray) {
         Arrays.sort(inputArray);
-        for (int i = 0; i< inputArray.length-1; i++){
-                if(inputArray[i] == inputArray[i+1]) inputArray[i] = 0;
+        for (int i = 0; i < inputArray.length - 1; i++) {
+            if (inputArray[i] == inputArray[i + 1]) inputArray[i] = 0;
 
         }
         return inputArray;

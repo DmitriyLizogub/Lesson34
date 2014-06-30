@@ -26,7 +26,7 @@ public class MainArray {
 
 
         int [] leftArrayOuter = {1,5,4,23,65,32,78};
-        int [] rightArrayOuter = {3,5,24,4,1,2,34,45,32,5}; //[2,3,23,24,34,45,65,78]
+        int [] rightArrayOuter = {3,5,24,4,1,2,34,45,32,5};
 
         int [] outerUnionRes = arrayHelper.outerUnion(leftArrayOuter,rightArrayOuter);
         System.out.println(Arrays.toString(outerUnionRes));

@@ -14,5 +14,11 @@ public class MainArray {
         ArrayHelper arrayHelper = new ArrayHelper();
         int [] resultArray = arrayHelper.leftUnion(leftArray, rightArray);
         System.out.println(Arrays.toString(resultArray));
+
+        int [] leftArrayInner = {1,5,4,23,65,32,78,-464,};
+        int [] rightArrayInner = {3,5,24,4,1,2,34,45,32,-464,5};
+
+        int [] innerUnionRes = arrayHelper.innerUnion(leftArrayInner,rightArrayInner);
+        System.out.println(Arrays.toString(innerUnionRes));
     }
 }
